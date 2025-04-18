@@ -1,6 +1,7 @@
 package servlet;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import dao.StudentDAO;
 import model.Student;
@@ -18,11 +19,12 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        MongoClient mongoClient = new MongoClient("localhost", 27017);
-        MongoDatabase database = mongoClient.getDatabase("student_db");
+        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");) {
+            MongoDatabase database = mongoClient.getDatabase("student_db");
 
-        StudentDAO studentDAO = new StudentDAO(database);
-        studentService = new StudentService(studentDAO);
+            StudentDAO studentDAO = new StudentDAO(database);
+            studentService = new StudentService(studentDAO);
+        }
     }
 
     @Override
