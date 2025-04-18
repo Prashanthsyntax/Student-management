@@ -12,7 +12,7 @@ document.getElementById("studentForm").addEventListener("submit", async function
     };
   
     try {
-      const response = await fetch("http://localhost:8080/student", {
+      const response = await fetch("http://localhost:8080/student-management/student", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
