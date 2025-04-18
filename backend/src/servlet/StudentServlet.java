@@ -28,16 +28,19 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+    
         String id = request.getParameter("id");
         String name = request.getParameter("name");
+        String email = request.getParameter("email");
         int age = Integer.parseInt(request.getParameter("age"));
-
-        Student student = new Student(id, name, age);
+        String department = request.getParameter("department");
+    
+        Student student = new Student(id, name, email, age, department);
         studentService.addStudent(student);
-
+    
         response.getWriter().write("Student Added Successfully");
     }
+    
 
     // You can later add doGet, doPut, and doDelete if needed
 }
