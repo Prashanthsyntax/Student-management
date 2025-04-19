@@ -7,23 +7,31 @@ import dao.StudentDAO;
 import model.Student;
 import service.StudentService;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.*;
+
 import java.io.IOException;
 
 @WebServlet("/student")
 public class StudentServlet extends HttpServlet {
 
+    private MongoClient mongoClient;
     private StudentService studentService;
 
     @Override
     public void init() throws ServletException {
-        try (MongoClient mongoClient = MongoClients.create("mongodb+srv://prashanthpendem2323:pendem2323@cluster0.jaswr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");) {
-            MongoDatabase database = mongoClient.getDatabase("StudentDB");
+        // MongoDB connection setup
+        mongoClient = MongoClients.create("mongodb+srv://prashanthpendem2323:pendem2323@cluster0.jaswr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");
+        MongoDatabase database = mongoClient.getDatabase("StudentDB");
+        StudentDAO studentDAO = new StudentDAO(database);
+        studentService = new StudentService(studentDAO);
+    }
 
-            StudentDAO studentDAO = new StudentDAO(database);
-            studentService = new StudentService(studentDAO);
+    @Override
+    public void destroy() {
+        if (mongoClient != null) {
+            mongoClient.close();
         }
     }
 
@@ -37,13 +45,13 @@ public class StudentServlet extends HttpServlet {
         int age = Integer.parseInt(request.getParameter("age"));
         String department = request.getParameter("department");
     
+        // Create student object from form data
         Student student = new Student(id, name, email, age, department);
+        
+        // Add student to MongoDB
         studentService.addStudent(student);
     
+        // Send confirmation message
         response.getWriter().write("Student Added Successfully");
     }
-    
-
-    // You can later add doGet, doPut, and doDelete if needed
 }
-

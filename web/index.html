@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Management</title>
+  <script defer src="app.js"></script> <!-- Only needed if using JS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white flex justify-center items-center min-h-screen">
+  <form id="studentForm" action="/student" method="POST" class="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-4">Add Student</h2>
+    
+    <label class="block mb-2">Student ID</label>
+    <input type="text" name="id" class="w-full p-2 rounded bg-gray-700 mb-4" required>
+
+    <label class="block mb-2">Name</label>
+    <input type="text" name="name" class="w-full p-2 rounded bg-gray-700 mb-4" required>
+
+    <label class="block mb-2">Email</label>
+    <input type="email" name="email" class="w-full p-2 rounded bg-gray-700 mb-4" required>
+
+    <label class="block mb-2">Age</label>
+    <input type="number" name="age" class="w-full p-2 rounded bg-gray-700 mb-4" required>
+
+    <label class="block mb-2">Department</label>
+    <input type="text" name="department" class="w-full p-2 rounded bg-gray-700 mb-4" required>
+
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">Submit</button>
+  </form>
+</body>
+</html>
