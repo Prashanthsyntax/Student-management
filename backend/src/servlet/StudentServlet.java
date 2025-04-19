@@ -19,7 +19,7 @@ public class StudentServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        try (MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");) {
+        try (MongoClient mongoClient = MongoClients.create("mongodb+srv://prashanthpendem2323:pendem2323@cluster0.jaswr.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0");) {
             MongoDatabase database = mongoClient.getDatabase("student_db");
 
             StudentDAO studentDAO = new StudentDAO(database);
